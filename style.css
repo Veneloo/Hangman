@@ -21,6 +21,10 @@ h1 {
     margin-top: 10px;
 }
 
+#guess-container {
+    margin-top: 50px;
+}
+
 #guess {
     display: block;
     width: 200px;
