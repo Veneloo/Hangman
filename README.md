@@ -6,9 +6,9 @@ Welcome to Hangman! This is a classic 2-player word guessing game where one play
 
 - [Getting Started](#getting-started)
 - [Game Rules](#game-rules)
+- [Files](#files)
 - [Running the Game](#running-the-game)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Getting Started
 
@@ -26,4 +26,12 @@ To get started with the Hangman game, you'll need the following:
 5. Player 2 continues guessing letters until they can either successfully guess the entire word or make a maximum number of wrong guesses.
 6. If Player 2 guesses the entire word correctly, they win. Otherwise, Player 1 wins.
 
+This is a simple hangman game implemented in Python and JavaScript.
 
+## Files
+
+- `brain.py`: This is the backend of the game, implemented in Python.
+- `index.html`: This is the frontend of the game, implemented in HTML.
+- `script.js`: This is the frontend logic of the game, implemented in JavaScript.
+- `style.css`: This is the styling for the frontend, implemented in CSS.
+- `store.db`: This is the database file where the game data is stored.
