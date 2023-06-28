@@ -19,7 +19,7 @@ To get started with the Hangman game, you'll need the following:
 
 ## Game Rules
 
-1. Player 1 thinks of a word and notes down the number of characters in it without revealing the word to Player 2.
+1. Player 1 chooses a word from the word bank that is provided without revealing it the word to Player 2.
 2. Player 2 starts guessing letters one at a time.
 3. If Player 2 guesses a letter that is present in the word, Player 1 reveals all occurrences of that letter in the word.
 4. If Player 2 guesses a letter that is not in the word, Player 1 marks it as a wrong guess.
