@@ -16,6 +16,11 @@ h1 {
     margin-top: 20px;
 }
 
+#attempts {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
 #guess {
     display: block;
     width: 200px;
