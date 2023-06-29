@@ -3,7 +3,7 @@
 
 import random
 import sqlite3
-
+import time
 
 def get_random_word():
     words = ['python', 'java', 'hangman', 'javascript', 'html', 'css']
@@ -14,7 +14,9 @@ def create_database():
     conn = sqlite3.connect('store.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS hangman
-                 (word text, guessed_letters text)''')
+                 (word text, guessed_letters text, player_name text, score integer)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS leaderboard
+                 (player_name text, score real)''')
     conn.commit()
     conn.close()
 
@@ -82,12 +84,33 @@ if __name__ == "__main__":
     player_name = input("Enter your name: ")
     start_time = time.time()  # Start timer
 
-    # Game logic to resolve the word goes here
-    resolved_word = "python"  # Placeholder for resolved word
+    # Game logic to resolve the word
+    guessed_letters = ['_'] * len(word)
+    attempts = 0
+
+    while '_' in guessed_letters:
+        print("Word:", ' '.join(guessed_letters))
+        guess = input("Guess a letter: ").lower()
+
+        if guess in guessed_letters:
+            print("You already guessed that letter. Try again.")
+            continue
+
+        found = False
+        for i, letter in enumerate(word):
+            if letter == guess:
+                guessed_letters[i] = letter
+                found = True
+
+        if not found:
+            print("Incorrect guess!")
+            attempts += 1
+
+        update_guessed_letters(word, ''.join(guessed_letters))
 
     end_time = time.time()  # Stop timer
     elapsed_time = end_time - start_time
-    score = elapsed_time  # Lower elapsed time means a better score
+    score = elapsed_time + (attempts * 5)  # Adjusted score considering elapsed time and attempts
 
     # Update the score for the player
     update_score(word, player_name, score)
