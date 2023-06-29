@@ -35,3 +35,35 @@ button {
     display: block;
     margin: 0 auto;
 }
+#leaderboard-container {
+    display: none;
+    margin-top: 20px;
+}
+
+#leaderboard-container h2 {
+    text-align: center;
+}
+
+#leaderboard-list {
+    list-style-type: decimal;
+    margin-left: 20px;
+}
+
+#player-form-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#player-form-container h2 {
+    text-align: center;
+}
+
+#player-name {
+    display: block;
+    margin: 10px auto;
+}
+
+#player-form-container button {
+    display: block;
+    margin: 0 auto;
+}
