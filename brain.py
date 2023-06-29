@@ -24,7 +24,7 @@ def create_database():
 def insert_word(word):
     conn = sqlite3.connect('store.db')
     c = conn.cursor()
-    c.execute("INSERT INTO hangman VALUES (?, '')", (word,))
+    c.execute("INSERT INTO hangman (word, guessed_letters, player_name, score) VALUES (?, '', '', 0)", (word,))
     conn.commit()
     conn.close()
 
