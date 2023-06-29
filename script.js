@@ -9,7 +9,7 @@ let guessedLetters = [];
 let displayLetters = [];
 
 // API endpoint for retrieving a random word
-const API_URL = "https://api.example.com/random-word"; // needs to be updated with the API that is going to be implemented in project.
+const API_URL = "https://api.example.com/random-word";
 
 // Function to fetch a random word from the API
 async function getRandomWord() {
@@ -30,15 +30,19 @@ function updateUI() {
   wordContainer.innerHTML = displayLetters.join(" ");
 
   const guessedLettersContainer = document.getElementById("guessed-letters");
-  guessedLettersContainer.textContent = guessedLetters
-    .filter((letter) => letter !== "_")
-    .join(", ");
+  guessedLettersContainer.textContent = guessedLetters.join(", ");
 }
 
 // Function to handle letter guesses
 function handleGuess() {
   const guessInput = document.getElementById("guess");
   const letter = guessInput.value.toLowerCase();
+
+  // Check if the input is exactly one character
+  if (letter.length !== 1) {
+    alert("Please enter only one character.");
+    return;
+  }
 
   // Add to guessed letters if not already guessed
   if (!guessedLetters.includes(letter)) {
