@@ -4,11 +4,26 @@ Axel Cazorla
 */
 
 window.onload = function() {
-
-  let word = "example"; // You can fetch this word from an API
+  let word = "example"; // Default word in case the API request fails
   let guessedLetters = [];
   let displayLetters = Array(word.length).fill("_");
   let mistakes = 0;
+
+  fetch('https://api.api-ninjas.com/v1/randomword', {
+    method: 'GET',
+    headers: {
+      'X-Api-Key': 'ouOQtaUg+RNdU6TKwFhGNw==92CCvw9Oc73LdBf8'
+    },
+  })
+  .then(response => response.json())
+  .then(data => {
+    word = data.word; // This is the random word from the API
+    displayLetters = Array(word.length).fill("_"); // Reset the display letters
+    updateUI();
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 
   let canvas = document.getElementById("stickman");
   let context = canvas.getContext("2d");
