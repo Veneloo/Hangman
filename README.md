@@ -21,12 +21,12 @@ To get started with the Hangman game, you'll need the following:
 
 ## Game Rules
 
-1. Player 1 chooses a word from the word bank that is provided without revealing it the word to Player 2.
-2. Player 2 starts guessing letters one at a time.
-3. If Player 2 guesses a letter that is present in the word, Player 1 reveals all occurrences of that letter in the word.
-4. If Player 2 guesses a letter that is not in the word, Player 1 marks it as a wrong guess.
-5. Player 2 continues guessing letters until they can either successfully guess the entire word or make a maximum number of wrong guesses.
-6. If Player 2 guesses the entire word correctly, they win. Otherwise, Player 1 wins.
+1. Enter your name on the prompt in order to start the game.
+2. Once you enter your first letter guess a timer will start running to show how long you take to guess the word.
+3. Each letter you use will be added into a box so you keep your progress.
+4. If you guess a letter incorrectly it will start drawing a body part of a hangman each time you guess incorrectly.
+5. If you guess correcly the word will start to form, the faster you guess the letter the farther up you are able to place in the leaderboard.
+6. Once the letter is guessed your time will be stored and will determine your position on the leaderboard.
 
 This is a simple hangman game implemented in Python and JavaScript.
 
