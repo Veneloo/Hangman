@@ -35,3 +35,4 @@ This is a simple hangman game implemented in Python and JavaScript.
 - `script.js`: This is the frontend logic of the game, implemented in JavaScript.
 - `style.css`: This is the styling for the frontend, implemented in CSS.
 - `store.db`: This is the database file where the game data is stored.
+- `unit_test.py`: This is the file that tests a case making sure it runs properly. 
