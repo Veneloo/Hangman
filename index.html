@@ -8,41 +8,38 @@
 </head>
 
 <body>
-    <h1>Hangman Game</h1>
+    <div class="container">
+        <h1>Hangman Game</h1>
 
-    <button id="generate-word-button">Generate Word</button>
+        <h3>Welcome, <span id="username"></span>!</h3>
 
+        <button id="logout-button">Logout</button>
 
-    <div id="lives-container">
-        <span id="lives"></span>
+        <button id="generate-word-button">Generate Word</button>
+
+        <div id="lives-container">
+            <span id="lives"></span>
+        </div>
+
+        <div id="hangman">
+            <canvas id="stickman" width="150" height="150"></canvas>
+        </div>
+
+        <div id="word"></div>
+
+        <div id="guessed-letters-container">
+            <p>Guessed letters: <span id="guessed-letters"></span></p>
+        </div>
+
+        <input type="text" id="guess" placeholder="Guess a letter">
+
+        <button id="guess-button">Guess</button>
+
+        <div id="leaderboard-container">
+            <h2>Leaderboard</h2>
+            <ol id="leaderboard-list"></ol>
+        </div>
     </div>
-
-    <div id="hangman">
-        <canvas id="stickman" width="150" height="150"></canvas>
-    </div>
-
-    <div id="word"></div>
-
-    <div id="guessed-letters-container">
-        <p>Guessed letters: <span id="guessed-letters"></span></p>
-    </div>
-    
-    <div id="leaderboard-container">
-        <h2>Leaderboard</h2>
-        <ol id="leaderboard-list"></ol>
-    </div>
-
-    <div id="player-form-container">
-        <h2>Enter Your Name</h2>
-        <input type="text" id="player-name" placeholder="Your Name">
-        <button onclick="startGame()">Start Game</button>
-    </div>
-
-
-    <input type="text" id="guess" placeholder="Guess a letter">
-    
-    <button id="guess-button">Guess</button>
-
 </body>
 
 </html>

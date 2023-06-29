@@ -3,8 +3,8 @@ Axel Cazorla
 06/26/2023
 */
 
-window.onload = function() {
-  let word = "example"; // Default word in case the API request fails
+window.onload = function () {
+  let word = "example";
   let guessedLetters = [];
   let displayLetters = Array(word.length).fill("_");
   let mistakes = 0;
@@ -14,25 +14,26 @@ window.onload = function() {
   let context = canvas.getContext("2d");
 
   function fetchNewWord() {
-    fetch('https://api.api-ninjas.com/v1/randomword', {
-      method: 'GET',
+    fetch("https://api.api-ninjas.com/v1/randomword", {
+      method: "GET",
       headers: {
-        'X-Api-Key': 'ouOQtaUg+RNdU6TKwFhGNw==92CCvw9Oc73LdBf8'
+        "X-Api-Key": "ouOQtaUg+RNdU6TKwFhGNw==92CCvw9Oc73LdBf8",
       },
     })
-    .then(response => response.json())
-    .then(data => {
-      word = data.word; // This is the random word from the API
-      guessedLetters = [];
-      displayLetters = Array(word.length).fill("_"); // Reset the display letters
-      mistakes = 0;
-      context.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-      drawBaseOfHangman();
-      updateUI();
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        word = data.word;
+        console.log("Word:", word);
+        guessedLetters = [];
+        displayLetters = Array(word.length).fill("_");
+        mistakes = 0;
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawBaseOfHangman();
+        updateUI();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 
   function drawLine(fromX, fromY, toX, toY) {
@@ -66,11 +67,24 @@ window.onload = function() {
   ];
 
   function drawBaseOfHangman() {
-    // Drawing base of the hangman
     drawLine(10, 140, 140, 140);
     drawLine(20, 140, 20, 20);
     drawLine(20, 20, 60, 20);
     drawLine(60, 20, 60, 35);
+  }
+
+  function handleLogout() {
+    sessionStorage.removeItem("username");
+    window.location.href = "login.html";
+  }
+
+  function displayUsername() {
+    const username = sessionStorage.getItem("username");
+    if (username) {
+      document.getElementById("username").textContent = username;
+    } else {
+      document.getElementById("username").textContent = "Guest";
+    }
   }
 
   function updateUI() {
@@ -114,17 +128,61 @@ window.onload = function() {
         fetchNewWord();
       }
 
+      if (displayLetters.join("") === word) {
+        alert("You won!");
+        const username = sessionStorage.getItem("username");
+        if (username) {
+          saveScore(username, maxLives - mistakes);
+        }
+        fetchNewWord();
+      }
+
       updateUI();
     }
 
     guessInput.value = "";
   }
 
-  document.querySelector("#generate-word-button").addEventListener("click", fetchNewWord);
-  document.querySelector("#guess-button").addEventListener("click", handleGuess);
+  function fetchLeaderboard() {
+    fetch("http://127.0.0.1:3000/api/leaderboard") // <-- Keep this endpoint
+      .then((response) => response.json())
+      .then((data) => {
+        const leaderboardList = document.getElementById("leaderboard-list");
+        data.forEach((item) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = `${item.username}: ${item.score}`;
+          leaderboardList.appendChild(listItem);
+        });
+      });
+  }
 
-  fetchNewWord(); // Fetch the first word
+  function saveScore(username, score) {
+    fetch("http://localhost:3000/api/leaderboard", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, score }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log("Score saved:", data))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
 
+  document
+    .querySelector("#generate-word-button")
+    .addEventListener("click", fetchNewWord);
+  document
+    .querySelector("#guess-button")
+    .addEventListener("click", handleGuess);
+  document
+    .querySelector("#logout-button")
+    .addEventListener("click", handleLogout);
+
+  fetchNewWord();
+  displayUsername();
   updateUI();
+  fetchLeaderboard();
 };
-
