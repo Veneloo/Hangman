@@ -9,7 +9,7 @@ CORS(app)
 
 @app.route('/api/leaderboard', methods=['GET'])
 def get_leaderboard():
-    conn = sqlite3.connect('store.db')
+    conn = sqlite3.connect('database/store.db')
     cursor = conn.cursor()
 
     # Changed DESC to ASC
@@ -32,7 +32,7 @@ def add_score():
     username = data.get('username')
     mistakes = data.get('mistakes')
 
-    conn = sqlite3.connect('store.db')
+    conn = sqlite3.connect('database/store.db')
     cursor = conn.cursor()
 
     cursor.execute(
