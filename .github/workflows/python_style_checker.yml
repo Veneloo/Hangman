@@ -20,8 +20,8 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Run pycodestyle check
-      uses: andymckay/pycodestyle-action@0.1.3
-      with:
-        args: --max-line-length=115
+    - name: Install pycodestyle
+      run: pip install pycodestyle
 
+    - name: Run pycodestyle check
+      run: pycodestyle . --max-line-length=115
