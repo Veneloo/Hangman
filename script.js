@@ -23,6 +23,7 @@ window.onload = function () {
       .then((response) => response.json())
       .then((data) => {
         word = data.word;
+        console.log("Word:", word);
         guessedLetters = [];
         displayLetters = Array(word.length).fill("_");
         mistakes = 0;
@@ -152,6 +153,21 @@ window.onload = function () {
           listItem.textContent = `${item.username}: ${item.score}`;
           leaderboardList.appendChild(listItem);
         });
+      });
+  }
+
+  function saveScore(username, score) {
+    fetch("http://localhost:3000/api/leaderboard", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, score }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log("Score saved:", data))
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }
 
