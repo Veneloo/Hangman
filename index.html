@@ -4,14 +4,17 @@
 <head>
     <title>Hangman Game</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
     <h1>Hangman Game</h1>
+
+    <div id="hangman">
+        <canvas id="stickman" width="150" height="150"></canvas>
+    </div>
+
     <div id="word"></div>
-    <input type="text" id="guess" placeholder="Guess a letter">
-    <button onclick="handleGuess()">Guess</button>
 
     <div id="guessed-letters-container">
         <p>Guessed letters: <span id="guessed-letters"></span></p>
@@ -28,6 +31,10 @@
         <button onclick="startGame()">Start Game</button>
     </div>
 
+
+    <input type="text" id="guess" placeholder="Guess a letter">
+    
+    <button>Guess</button>
 
 </body>
 
