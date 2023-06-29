@@ -16,7 +16,7 @@ h1 {
     margin-top: 20px;
 }
 
-#guessed-letters {
+#guessed-letters-container {
     font-size: 20px;
     margin-top: 10px;
 }
@@ -34,4 +34,12 @@ h1 {
 button {
     display: block;
     margin: 0 auto;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    color: black;
+    border: black dashed 2px;
+    padding:15px;
 }
