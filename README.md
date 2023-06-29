@@ -4,10 +4,12 @@ Welcome to Hangman! This is a classic 2-player word guessing game where one play
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-- [Game Rules](#game-rules)
-- [Files](#files)
-- [Running the Game](#running-the-game)
+- [Hangman Game](#hangman-game)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+  - [Game Rules](#game-rules)
+  - [Files](#files)
+  - [Todo](#todo)
 
 
 ## Getting Started
@@ -36,3 +38,9 @@ This is a simple hangman game implemented in Python and JavaScript.
 - `style.css`: This is the styling for the frontend, implemented in CSS.
 - `store.db`: This is the database file where the game data is stored.
 - `unit_test.py`: This is the file that tests a case making sure it runs properly. 
+
+
+## Todo
+* Leaderboard
+* Lives
+* Pages

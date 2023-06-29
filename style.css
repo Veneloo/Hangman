@@ -1,39 +1,70 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-h1 {
-    text-align: center;
-    padding: 20px;
-}
-
-#word {
-    font-size: 2em;
-    text-align: center;
-    margin-top: 20px;
-}
-
-#guessed-letters-container {
-    font-size: 20px;
-    margin-top: 10px;
-}
-
-#guess-container {
-    margin-top: 50px;
+button:hover {
+    background-color: #333;
 }
 
 #guess {
     display: block;
     width: 200px;
     margin: 20px auto;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid #333;
+    border-radius: 5px;
 }
 
-button {
-    display: block;
-    margin: 0 auto;
+#guessed-letters-container {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+#lives-container {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+    font-size: 36px;
+    color: #333;
+}
+
+#word {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #333;
 }
 
 canvas {
@@ -41,5 +72,5 @@ canvas {
     margin: 0 auto;
     color: black;
     border: black dashed 2px;
-    padding:15px;
+    padding: 15px;
 }
