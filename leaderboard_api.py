@@ -3,7 +3,8 @@ from flask_cors import CORS
 import sqlite3
 
 app = Flask(__name__)
-# This will allow all origins. For more control, use CORS(app, origins=['http://127.0.0.1:3001'])
+# This will allow all origins. For more control,
+# use CORS(app, origins=['http://127.0.0.1:3001'])
 CORS(app)
 
 
@@ -18,7 +19,8 @@ def get_leaderboard():
 
     conn.close()
 
-    # Convert the leaderboard data into a list of dictionaries so it can be converted to JSON
+    # Convert the leaderboard data into a list of
+    # dictionaries so it can be converted to JSON
     leaderboard = [{'username': row[0], 'score': row[1]}
                    for row in leaderboard]
 
@@ -36,7 +38,8 @@ def add_score():
     cursor = conn.cursor()
 
     cursor.execute(
-        "INSERT INTO leaderboard (username, mistakes) VALUES (?, ?)", (username, mistakes))
+        "INSERT INTO leaderboard (username, mistakes) VALUES (?, ?)",
+        (username, mistakes))
 
     conn.commit()
     conn.close()

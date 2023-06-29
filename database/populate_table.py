@@ -12,7 +12,8 @@ for _ in range(10):
         string.ascii_lowercase + string.ascii_uppercase, k=5))
     score = random.randint(1, 10)
     c.execute(
-        "INSERT INTO leaderboard (username, mistakes) VALUES (?, ?)", (username, score))
+        "INSERT INTO leaderboard (username, mistakes) VALUES (?ƒ, ?)",
+        (username, score))
 
 # Commit the changes and close the connection
 conn.commit()
