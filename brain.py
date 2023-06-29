@@ -60,9 +60,28 @@ def update_score(word, player_name, score):
 def add_to_leaderboard(player_name, score):
     conn = sqlite3.connect('store.db')
     c = conn.cursor()
-    c.execute("INSERT INTO leaderboard VALUES (?, ?)", (player_name, score))
+
+    # Retrieve the current number of rows in the leaderboard table
+    c.execute("SELECT COUNT(*) FROM leaderboard")
+    count = c.fetchone()[0]
+
+    if count < 10:
+        c.execute("INSERT INTO leaderboard VALUES (?, ?)", (player_name, score))
+    else:
+        # Find the player with the highest score in the current leaderboard
+        c.execute("SELECT player_name, score FROM leaderboard ORDER BY score DESC LIMIT 1")
+        highest_score_player = c.fetchone()
+
+        # Compare the current player's score with the highest score in the leaderboard
+        if score < highest_score_player[1]:
+            # Remove the player with the highest score
+            c.execute("DELETE FROM leaderboard WHERE player_name = ?", (highest_score_player[0],))
+            # Insert the current player's score
+            c.execute("INSERT INTO leaderboard VALUES (?, ?)", (player_name, score))
+
     conn.commit()
     conn.close()
+
 
 
 def get_leaderboard():
@@ -72,6 +91,14 @@ def get_leaderboard():
     leaderboard = c.fetchall()
     conn.close()
     return leaderboard
+
+def clear_leaderboard():
+    conn = sqlite3.connect('store.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM leaderboard")
+    conn.commit()
+    conn.close()
+
 
 
 # Updated Main to Interact with the New Inputs      Axel Cazorla 06/29/2023
@@ -123,3 +150,22 @@ if __name__ == "__main__":
     print("Leaderboard:")
     for position, (player, score) in enumerate(leaderboard, start=1):
         print(f"{position}. {player}: {score:.2f} seconds")
+        
+        
+    # Additional menu option to clear leaderboard
+    
+    print("\nMenu:")
+    print("1. Clear Leaderboard")
+    print("2. Keep Leaderboard")
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        clear_leaderboard()
+        print("Leaderboard cleared.")
+    
+    elif choice == "2":
+        print("Leaderboard Remains\nQuitting the Program.")
+        exit()
+    else:
+        print("Invalid choice try again.")
+
