@@ -29,7 +29,8 @@ class HangmanGameTestCase(unittest.TestCase):
     def test_get_random_word(self):
         word = get_random_word()
         self.assertIsNotNone(word)
-        self.assertIn(word, ["python", "java", "hangman", "javascript", "html", "css"])
+        self.assertIn(word, ["python", "java", "hangman",
+                      "javascript", "html", "css"])
 
     def test_create_database(self):
         create_database()
@@ -51,7 +52,8 @@ class HangmanGameTestCase(unittest.TestCase):
         guessed_letters = "p___o_"
         insert_word(word)
         update_guessed_letters(word, guessed_letters)
-        self.cursor.execute("SELECT guessed_letters FROM hangman WHERE word=?", (word,))
+        self.cursor.execute(
+            "SELECT guessed_letters FROM hangman WHERE word=?", (word,))
         result = self.cursor.fetchone()
         self.assertEqual(result[0], guessed_letters)
 
