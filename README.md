@@ -38,9 +38,5 @@ This is a simple hangman game implemented in Python and JavaScript.
 - `style.css`: This is the styling for the frontend, implemented in CSS.
 - `store.db`: This is the database file where the game data is stored.
 - `unit_test.py`: This is the file that tests a case making sure it runs properly. 
-
-
-## Todo
-* Leaderboard
-* Lives
-* Pages
+- `leader_board_api.py`: This file keeps track of the leaderboard and every new entry.
+- `requirements.txt`: This is a text file that contains all the requirements for you to run the program.
