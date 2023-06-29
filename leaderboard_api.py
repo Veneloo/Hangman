@@ -30,13 +30,13 @@ def add_score():
     data = request.get_json()
 
     username = data.get('username')
-    score = data.get('score')
+    mistakes = data.get('mistakes')
 
     conn = sqlite3.connect('store.db')
     cursor = conn.cursor()
 
     cursor.execute(
-        "INSERT INTO leaderboard (username, score) VALUES (?, ?)", (username, score))
+        "INSERT INTO leaderboard (username, mistakes) VALUES (?, ?)", (username, mistakes))
 
     conn.commit()
     conn.close()

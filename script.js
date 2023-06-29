@@ -22,7 +22,7 @@ window.onload = function () {
     })
       .then((response) => response.json())
       .then((data) => {
-        word = data.word;
+        word = data.word.toLowerCase();
         console.log("Word:", word);
         guessedLetters = [];
         displayLetters = Array(word.length).fill("_");
@@ -125,6 +125,10 @@ window.onload = function () {
 
       if (mistakes >= maxLives) {
         alert("You lost!" + "\n" + "The word was: " + word);
+        const username = sessionStorage.getItem("username");
+        if (username) {
+          saveScore(username, mistakes); // Saving the score on a loss
+        }
         fetchNewWord();
       }
 
@@ -132,7 +136,7 @@ window.onload = function () {
         alert("You won!");
         const username = sessionStorage.getItem("username");
         if (username) {
-          saveScore(username, maxLives - mistakes);
+          saveScore(username, mistakes); // Saving the score on a win
         }
         fetchNewWord();
       }
@@ -156,16 +160,16 @@ window.onload = function () {
       });
   }
 
-  function saveScore(username, score) {
+  function saveScore(username, mistakes) {
     fetch("http://localhost:3000/api/leaderboard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, score }),
+      body: JSON.stringify({ username, mistakes }), // sending username and mistakes
     })
       .then((response) => response.json())
-      .then((data) => console.log("Score saved:", data))
+      .then((data) => console.log("Score saved:", mistakes))
       .catch((error) => {
         console.error("Error:", error);
       });
