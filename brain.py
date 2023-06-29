@@ -66,7 +66,8 @@ def add_to_leaderboard(player_name, score):
     count = c.fetchone()[0]
 
     if count < 10:
-        c.execute("INSERT INTO leaderboard VALUES (?, ?)", (player_name, score))
+        c.execute("INSERT INTO leaderboard (player_name, score) VALUES (?, ?)", (player_name, score))
+
     else:
         # Find the player with the highest score in the current leaderboard
         c.execute("SELECT player_name, score FROM leaderboard ORDER BY score DESC LIMIT 1")
@@ -77,7 +78,8 @@ def add_to_leaderboard(player_name, score):
             # Remove the player with the highest score
             c.execute("DELETE FROM leaderboard WHERE player_name = ?", (highest_score_player[0],))
             # Insert the current player's score
-            c.execute("INSERT INTO leaderboard VALUES (?, ?)", (player_name, score))
+            c.execute("INSERT INTO leaderboard (player_name, score) VALUES (?, ?)", (player_name, score))
+
 
     conn.commit()
     conn.close()

@@ -3,7 +3,7 @@
 
 import unittest
 import sqlite3
-from brain import get_random_word, create_database, insert_word, update_guessed_letters, get_guessed_letters
+from brain import get_random_word, create_database, insert_word, update_guessed_letters, get_guessed_letters, clear_leaderboard, add_to_leaderboard, get_leaderboard
 
 class HangmanGameTestCase(unittest.TestCase):
 
@@ -14,6 +14,7 @@ class HangmanGameTestCase(unittest.TestCase):
 
     def setUp(self):
         self.cursor.execute("DELETE FROM hangman")
+        self.cursor.execute("DELETE FROM leaderboard")
         self.connection.commit()
 
     def test_get_random_word(self):
@@ -51,10 +52,27 @@ class HangmanGameTestCase(unittest.TestCase):
         result = get_guessed_letters(word)
         self.assertEqual(result, guessed_letters)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.cursor.close()
-        cls.connection.close()
+ 
+    def test_clear_leaderboard(self):
+        player_name = 'John Doe'
+        score = 30.5
+        insert_word('python')
+        add_to_leaderboard(player_name, score)
+        clear_leaderboard()
+        self.cursor.execute("SELECT * FROM leaderboard")
+        result = self.cursor.fetchall()
+        self.assertEqual(len(result), 0)
 
-if __name__ == "__main__":
+    def test_get_leaderboard(self):
+        player_name = 'Alice'
+        score = 45.2
+        add_to_leaderboard(player_name, score)
+        leaderboard = get_leaderboard()
+        self.assertEqual(len(leaderboard), 1)
+        self.assertEqual(leaderboard[0][0], player_name)
+        self.assertAlmostEqual(leaderboard[0][1], score)
+
+
+
+if __name__ == '__main__':
     unittest.main()
