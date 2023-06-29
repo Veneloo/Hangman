@@ -4,14 +4,36 @@ Axel Cazorla
 */
 
 window.onload = function() {
-
-  let word = "example"; // You can fetch this word from an API
+  let word = "example"; // Default word in case the API request fails
   let guessedLetters = [];
   let displayLetters = Array(word.length).fill("_");
   let mistakes = 0;
+  let maxLives = 6;
 
   let canvas = document.getElementById("stickman");
   let context = canvas.getContext("2d");
+
+  function fetchNewWord() {
+    fetch('https://api.api-ninjas.com/v1/randomword', {
+      method: 'GET',
+      headers: {
+        'X-Api-Key': 'ouOQtaUg+RNdU6TKwFhGNw==92CCvw9Oc73LdBf8'
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      word = data.word; // This is the random word from the API
+      guessedLetters = [];
+      displayLetters = Array(word.length).fill("_"); // Reset the display letters
+      mistakes = 0;
+      context.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+      drawBaseOfHangman();
+      updateUI();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
 
   function drawLine(fromX, fromY, toX, toY) {
     context.beginPath();
@@ -43,12 +65,23 @@ window.onload = function() {
     },
   ];
 
+  function drawBaseOfHangman() {
+    // Drawing base of the hangman
+    drawLine(10, 140, 140, 140);
+    drawLine(20, 140, 20, 20);
+    drawLine(20, 20, 60, 20);
+    drawLine(60, 20, 60, 35);
+  }
+
   function updateUI() {
     const wordContainer = document.getElementById("word");
     wordContainer.innerHTML = displayLetters.join(" ");
 
     const guessedLettersContainer = document.getElementById("guessed-letters");
     guessedLettersContainer.textContent = guessedLetters.join(", ");
+
+    const livesContainer = document.getElementById("lives");
+    livesContainer.textContent = `Lives: ${maxLives - mistakes}`;
   }
 
   function handleGuess() {
@@ -76,19 +109,22 @@ window.onload = function() {
         }
       }
 
+      if (mistakes >= maxLives) {
+        alert("You lost!" + "\n" + "The word was: " + word);
+        fetchNewWord();
+      }
+
       updateUI();
     }
 
     guessInput.value = "";
   }
 
-  document.querySelector("button").addEventListener("click", handleGuess);
+  document.querySelector("#generate-word-button").addEventListener("click", fetchNewWord);
+  document.querySelector("#guess-button").addEventListener("click", handleGuess);
 
-  // Drawing base of the hangman
-  drawLine(10, 140, 140, 140);
-  drawLine(20, 140, 20, 20);
-  drawLine(20, 20, 60, 20);
-  drawLine(60, 20, 60, 35);
+  fetchNewWord(); // Fetch the first word
 
   updateUI();
 };
+
