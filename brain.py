@@ -5,6 +5,7 @@ import random
 import sqlite3
 import time
 
+
 def get_random_word():
     words = ['python', 'java', 'hangman', 'javascript', 'html', 'css']
     return random.choice(words)
@@ -32,8 +33,7 @@ def insert_word(word):
 def update_guessed_letters(word, guessed_letters):
     conn = sqlite3.connect('store.db')
     c = conn.cursor()
-    c.execute("UPDATE hangman SET guessed_letters = ? WHERE word = ?",
-              (guessed_letters, word))
+    c.execute("UPDATE hangman SET guessed_letters = ? WHERE word = ?", (guessed_letters, word))
     conn.commit()
     conn.close()
 
@@ -46,13 +46,13 @@ def get_guessed_letters(word):
     conn.close()
     return guessed_letters
 
-# Added Leaderboard Features                Axel Cazorla 06/29/2023
+
+# Added Leaderboard Features - Axel Cazorla 06/29/2023
 
 def update_score(word, player_name, score):
     conn = sqlite3.connect('store.db')
     c = conn.cursor()
-    c.execute("UPDATE hangman SET player_name = ?, score = ? WHERE word = ?",
-              (player_name, score, word))
+    c.execute("UPDATE hangman SET player_name = ?, score = ? WHERE word = ?", (player_name, score, word))
     conn.commit()
     conn.close()
 
@@ -67,7 +67,6 @@ def add_to_leaderboard(player_name, score):
 
     if count < 10:
         c.execute("INSERT INTO leaderboard (player_name, score) VALUES (?, ?)", (player_name, score))
-
     else:
         # Find the player with the highest score in the current leaderboard
         c.execute("SELECT player_name, score FROM leaderboard ORDER BY score DESC LIMIT 1")
@@ -80,10 +79,8 @@ def add_to_leaderboard(player_name, score):
             # Insert the current player's score
             c.execute("INSERT INTO leaderboard (player_name, score) VALUES (?, ?)", (player_name, score))
 
-
     conn.commit()
     conn.close()
-
 
 
 def get_leaderboard():
@@ -94,6 +91,7 @@ def get_leaderboard():
     conn.close()
     return leaderboard
 
+
 def clear_leaderboard():
     conn = sqlite3.connect('store.db')
     c = conn.cursor()
@@ -102,8 +100,7 @@ def clear_leaderboard():
     conn.close()
 
 
-
-# Updated Main to Interact with the New Inputs      Axel Cazorla 06/29/2023
+# Updated Main to Interact with the New Inputs - Axel Cazorla 06/29/2023
 
 if __name__ == "__main__":
     create_database()
@@ -152,10 +149,9 @@ if __name__ == "__main__":
     print("Leaderboard:")
     for position, (player, score) in enumerate(leaderboard, start=1):
         print(f"{position}. {player}: {score:.2f} seconds")
-        
-        
+
     # Additional menu option to clear leaderboard
-    
+
     print("\nMenu:")
     print("1. Clear Leaderboard")
     print("2. Keep Leaderboard")
@@ -164,10 +160,8 @@ if __name__ == "__main__":
     if choice == "1":
         clear_leaderboard()
         print("Leaderboard cleared.")
-    
     elif choice == "2":
         print("Leaderboard Remains\nQuitting the Program.")
         exit()
     else:
-        print("Invalid choice try again.")
-
+        print("Invalid choice. Try again.")

@@ -1,0 +1,28 @@
+name: Python Style Checker
+
+on:
+  push:
+    paths:
+      - '**.py'
+  pull_request:
+    paths:
+      - '**.py'
+  workflow_dispatch:
+
+jobs:
+  style-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out source code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install pycodestyle
+      run: pip install pycodestyle
+
+    - name: Run pycodestyle check
+      run: pycodestyle . --max-line-length=115
